@@ -1,2 +1,3 @@
 import express from "express";
-const app = express();
+import { driversInRandomOrder as data } from "../dist/data.js";
+
