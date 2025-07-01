@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2020",           // gera JS moderno, compatível com import/export
-    "module": "ESNext",           // usa módulos ES6 (import/export)
-    "moduleResolution": "node",   // resolve módulos no estilo Node.js
-    "esModuleInterop": true,      // permite importar commonjs com default import (ex: express)
+    "target": "ES2020",          
+    "module": "ESNext",           
+    "moduleResolution": "node",   
+    "esModuleInterop": true,      
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "outDir": "./dist",           // pasta onde vai o JS compilado
-    "rootDir": "./src"            // pasta dos arquivos TS fontes
+    "outDir": "./dist",           
+    "rootDir": "./src"            
   },
   "include": ["src"],
   "exclude": ["dist"]
