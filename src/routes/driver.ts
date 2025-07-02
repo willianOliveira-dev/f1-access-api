@@ -122,6 +122,8 @@ router.put(
 
         drivers = insertionSortLike(drivers, "desc", "points");
 
+        teams.length = 0; // Limpar o array
+        teams.push(...generateTeamsArray(drivers));
         res.status(200).send(selectDriver);
     }
 );
