@@ -5,6 +5,7 @@ import {
     Driver,
     ErrorResponse,
     generateTeamsArray,
+    Team,
 } from "../data.js";
 import { randomUUID } from "node:crypto";
 import {
@@ -16,6 +17,10 @@ import { teams } from "./team.js";
 
 const router: Router = express.Router();
 let drivers: Driver[] = driversInOrder;
+const updateDataTeams = (teams: Team[]): void => {
+    teams.length = 0; // Limpar o array
+    teams.push(...generateTeamsArray(drivers));
+};
 
 router.get("/", (_, res: Response<Driver[]>): void => {
     res.status(200).send(drivers);
@@ -80,8 +85,7 @@ router.post(
         drivers.push(newDriver);
 
         drivers = insertionSortLike(drivers, "desc", "points");
-        teams.length = 0; // Limpar o array
-        teams.push(...generateTeamsArray(drivers));
+        updateDataTeams(teams);
         res.status(200).send(newDriver);
     }
 );
@@ -122,8 +126,7 @@ router.put(
 
         drivers = insertionSortLike(drivers, "desc", "points");
 
-        teams.length = 0; // Limpar o array
-        teams.push(...generateTeamsArray(drivers));
+        updateDataTeams(teams);
         res.status(200).send(selectDriver);
     }
 );
@@ -149,6 +152,7 @@ router.delete(
         drivers.splice(index, 1);
 
         drivers = insertionSortLike(drivers, "desc", "points");
+        updateDataTeams(teams);
         res.status(200).send(selectDriver);
     }
 );
