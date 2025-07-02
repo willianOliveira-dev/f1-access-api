@@ -1,11 +1,22 @@
-import insertionSortLike from "../dist/InsertionSortLike.js";
+import insertionSortLike from "./InsertionSortLike.js";
 
-const driversInRandomOrder: {
+export interface Driver {
     name: string;
     team: string;
     points: number;
     id: string;
-}[] = [
+}
+
+export interface Team {
+    team: string;
+    points: number;
+}
+
+export interface ErrorResponse {
+    error: string;
+}
+
+const driversInRandomOrder: Driver[] = [
     {
         name: "Max Verstappen",
         team: "Red Bull Racing",
@@ -134,4 +145,23 @@ const driversInRandomOrder: {
     },
 ];
 
-export default insertionSortLike(driversInRandomOrder, "desc", "points");
+export const driversInOrder = insertionSortLike(
+    driversInRandomOrder,
+    "desc",
+    "points"
+);
+
+export const generateTeamsArray = (drivers: Driver[]): Team[] => {
+    return insertionSortLike(
+        drivers.reduce((acc: Team[], currentValue: Driver): Team[] => {
+            const { team, points } = currentValue;
+            const teamObject = acc.find((t) => t.team == team);
+            teamObject !== undefined
+                ? (teamObject.points += points)
+                : acc.push({ team, points });
+            return acc;
+        }, []),
+        "desc",
+        "points"
+    );
+};
