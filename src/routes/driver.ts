@@ -1,12 +1,18 @@
 import express, { Request, Response, Router } from "express";
 import insertionSortLike from "../InsertionSortLike.js";
-import { driversInOrder, Driver, ErrorResponse } from "../data.js";
+import {
+    driversInOrder,
+    Driver,
+    ErrorResponse,
+    generateTeamsArray,
+} from "../data.js";
 import { randomUUID } from "node:crypto";
 import {
     validateDriverInfo,
     validateUpdateDriverInfo,
     validatePosition,
 } from "../inputValidation.js";
+import { teams } from "./team.js";
 
 const router: Router = express.Router();
 let drivers: Driver[] = driversInOrder;
@@ -55,7 +61,6 @@ router.get(
     }
 );
 
-
 router.post(
     "/",
     (req: Request, res: Response<Driver | ErrorResponse>): void => {
@@ -75,7 +80,8 @@ router.post(
         drivers.push(newDriver);
 
         drivers = insertionSortLike(drivers, "desc", "points");
-
+        teams.length = 0; // Limpar o array
+        teams.push(...generateTeamsArray(drivers));
         res.status(200).send(newDriver);
     }
 );
