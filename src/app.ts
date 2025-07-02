@@ -11,6 +11,4 @@ app.use(baseAPIRoute + "/drivers", driverRouter);
 app.use(baseAPIRoute + "/teams", teamRouter);
 
 const PORT: number = 8000;
-app.listen(PORT, (): void => {
-    console.info(`Servidor rodando em http://localhost:${PORT}`);
-});
+app.listen(PORT);
