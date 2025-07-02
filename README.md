@@ -64,7 +64,7 @@ npm start
 
 Base URL: `http://localhost:8000/api/v1`
 
-### 🧍‍♂️ Pilotos
+### Pilotos
 
 * `GET /drivers` → Lista todos os pilotos.
 * `GET /drivers/:id` → Retorna piloto específico por ID.
