@@ -1,7 +1,7 @@
-export default function insertionSortLike<T>(
+export default function insertionSortLike<T, K extends keyof T>(
     array: T[],
     order: "asc" | "desc" = "asc",
-    key?: string | undefined
+    key?: K | undefined
 ): T[] | never {
     if (array.length === 0) return [];
 
@@ -18,14 +18,14 @@ export default function insertionSortLike<T>(
     for (let i: number = 0; i < array.length; i++) {
         let isPlaced: boolean = false;
         const current: T = array[i];
-        const value: number = isObjectArray && key ? array[i][key] : current;
+        const value: T | T[K] = isObjectArray && key ? array[i][key] : current;
 
         if (typeof value === "string") {
             throw new Error("Esta função só suporta ordenação de valores numéricos. Verifique os dados.");
         }
 
         for (let k: number = 0; k < sorted.length; k++) {
-            const sortedValue: number = isObjectArray ? sorted[k][key] : sorted[k];
+            const sortedValue: T | T[K] = isObjectArray ? sorted[k][key] : sorted[k];
             if (order === "asc" ? value < sortedValue : value > sortedValue) {
                 sorted.splice(k, 0, current);
                 isPlaced = true;
